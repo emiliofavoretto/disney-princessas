@@ -44,8 +44,8 @@ app.get("/princesas/nome/:nome", (req, res) => {
   }
 });
 
-app.get("/princesas/reino/:casa", (req, res) => {
-  let casa = req.params.reino;
+app.get("/princesas/reino/:reino", (req, res) => {
+  let reino = req.params.reino;
   const PrincesasReino = princesas.filter(b => b.reino.toLowerCase() === reino.toLowerCase());
   
   if (PrincesasReino.length > 0) {
@@ -56,6 +56,16 @@ app.get("/princesas/reino/:casa", (req, res) => {
           mensagem: "Nenhuma princesa encontrado nesse reino!"
       })
   }
+});
+
+app.get("/princesas/ativas/sim", (req, res) => {
+    const resultado = princesas.filter(b => b.ativa)
+
+    if(resultado) {
+        res.status(200).json(resultado)
+    } else {
+        res.status(404).json({erro: "nenhuma princesa ativa encontrada"});
+    }
 });
 
 
